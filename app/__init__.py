@@ -24,4 +24,10 @@ def create_app(test_config=None):
     from .controller.students import student
     app.register_blueprint(student)
 
+    from .controller.courses import course
+    app.register_blueprint(course)
+
+    from .controller.colleges import college
+    app.register_blueprint(college)
+
     return app
