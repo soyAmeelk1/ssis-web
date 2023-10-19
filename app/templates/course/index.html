@@ -2,3 +2,29 @@
 {% block title %}
     Courses
 {% endblock %}
+
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Course Name</th>
+                <th>Course Code</th>
+                <th>College</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <th>BS Computer Science</th>
+                <th>BSCS</th>
+                <th>CCS</th>
+                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
