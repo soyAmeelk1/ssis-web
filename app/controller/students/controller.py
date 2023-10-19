@@ -9,5 +9,9 @@ import app.models as models
 @student.route("/")
 @student.route("/student")
 def index():
-    students = models.Students.all()
-    return render_template("master_layout.html", students=students)
+    # students = models.Students.all()
+    return render_template("student/index.html")
+
+@student.route("/create")
+def create():
+    return render_template("student/create.html")

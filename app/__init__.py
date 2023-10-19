@@ -21,11 +21,7 @@ def create_app(test_config=None):
     mysql.init_app(app)
     CSRFProtect(app)
 
-    # from .controller.students import student
-    # app.register_blueprint(student)
-    
-    @app.route("/")
-    def hello_world():
-        return render_template('master_layout.html')
+    from .controller.students import student
+    app.register_blueprint(student)
 
     return app
