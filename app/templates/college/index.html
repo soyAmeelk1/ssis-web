@@ -15,15 +15,16 @@
                 <th>College Name</th>
                 <th>College Code</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>1</th>
-                <th>College of Computer Science</th>
-                <th>CCS</th>
-                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                {% for college in colleges %}
+                    <th>{{college[0]}}</th>
+                    <th>{{college[1]}}</th>
+                    <th>{{college[2]}}</th>
+                    <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                {% endfor %}
             </tr>
         </tbody>
     </table>

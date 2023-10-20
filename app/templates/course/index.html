@@ -16,16 +16,22 @@
                 <th>Course Code</th>
                 <th>College</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>1</th>
+                {% for course in courses %}
+                    <th>{{course[0]}}</th>
+                    <th>{{course[1]}}</th>
+                    <th>{{course[2]}}</th>
+                    <th>{{course[3]}}</th>
+                    <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                {% endfor %}
+                <!-- <th>1</th>
                 <th>BS Computer Science</th>
                 <th>BSCS</th>
                 <th>CCS</th>
-                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th> -->
             </tr>
         </tbody>
     </table>

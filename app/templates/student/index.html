@@ -18,18 +18,26 @@
                 <th>Year</th>
                 <th>Gender</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>2019-2019</th>
+                {% for student in students %}
+                    <th>{{student[0]}}</th>
+                    <th>{{student[1]}}</th>
+                    <th>{{student[2]}}</th>
+                    <th>{{student[3]}}</th>
+                    <th>{{student[4]}}</th>
+                    <th>{{student[5]}}</th>
+                    <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                {% endfor %}
+                <!-- <th>2019-2019</th>
                 <th>Wo</th>
                 <th>Shingshe</th>
                 <th>Bs Computer Science</th>
                 <th>4</th>
                 <th>Male</th>
-                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th> -->
             </tr>
         </tbody>
     </table>
