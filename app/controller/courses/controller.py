@@ -6,7 +6,6 @@ from . import course
 import app.models as models
 
 
-@course.route("/")
 @course.route("/course")
 def index():
     # students = models.Students.all()

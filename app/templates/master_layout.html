@@ -22,7 +22,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Student List</a>
+        {% block subtitle %}{% endblock %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,9 +33,9 @@
                 Select
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="student/index.html">Students</a></li>
-                <li><a class="dropdown-item" href="course/index.html">Courses</a></li>
-                <li><a class="dropdown-item" href="college/index.html">Colleges</a></li>
+                <li><a class="dropdown-item" href="/student">Students</a></li>
+                <li><a class="dropdown-item" href="/course">Courses</a></li>
+                <li><a class="dropdown-item" href="/college">Colleges</a></li>
               </ul>
             </li>
             <li class="nav-item">
