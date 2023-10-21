@@ -11,7 +11,8 @@
     <table class="table table-striped" style="width: 70%;margin: auto;">
         <thead>
             <tr>
-                <th>ID #</th>
+                <th>ID</th>
+                <th>ID Number</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Course</th>
@@ -21,24 +22,21 @@
             </tr>
         </thead>
         <tbody>
+            {% for student in students %}
             <tr>
-                {% for student in students %}
-                    <th>{{student[0]}}</th>
-                    <th>{{student[1]}}</th>
-                    <th>{{student[2]}}</th>
-                    <th>{{student[3]}}</th>
-                    <th>{{student[4]}}</th>
-                    <th>{{student[5]}}</th>
-                    <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
-                {% endfor %}
-                <!-- <th>2019-2019</th>
-                <th>Wo</th>
-                <th>Shingshe</th>
-                <th>Bs Computer Science</th>
-                <th>4</th>
-                <th>Male</th>
-                <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th> -->
+                <td>{{student[0]}}</td>
+                <td>{{student[1]}}</td>
+                <td>{{student[2]}}</td>
+                <td>{{student[3]}}</td>
+                <td>{{student[4]}}</td>
+                <td>{{student[5]}}</td>
+                <td>{{student[6]}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}

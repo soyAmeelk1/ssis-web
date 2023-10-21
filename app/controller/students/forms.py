@@ -4,10 +4,10 @@ import app.models as models
 
 
 class StudentForm(FlaskForm):
-    id = StringField("ID Number", [validators.DataRequired()])
-    firstname = StringField("First Name", [validators.DataRequired()])
-    lastname = StringField("Last Name", [validators.DataRequired()])
-    coursecode = StringField("Course", [validators.DataRequired()])
+    id_number = StringField("ID Number", [validators.DataRequired()])
+    first_name = StringField("First Name", [validators.DataRequired()])
+    last_name = StringField("Last Name", [validators.DataRequired()])
+    course_id = StringField("Course", [validators.DataRequired()])
     year = StringField("Year", [validators.DataRequired()])
     gender = StringField("Gender", [validators.DataRequired()])
     submit = SubmitField("Submit")

@@ -1,0 +1,20 @@
+{% extends "master_layout.html" %}
+{% block title %}
+    Create Student
+{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center">
+  <form action="{{ url_for('.create_student') }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="mb-3">
+    </div>
+    <div class="mb-3">{{ form.id_number.label }} {{ form.id_number(class_="form-control") }}</div>
+    <div class="mb-3">{{ form.first_name.label }} {{ form.first_name(class_="form-control") }}</div>
+    <div class="mb-3">{{ form.last_name.label }} {{ form.last_name(class_="form-control") }}</div>
+    <div class="mb-3">{{ form.course_id.label }} {{ form.course_id(class_="form-control") }}</div>
+    <div class="mb-3">{{ form.year.label }} {{ form.year(class_="form-control") }}</div>
+    <div class="mb-3">{{ form.gender.label }} {{ form.gender(class_="form-control") }}</div>
+    <button style="font-size: medium;" class="btn btn-outline-success">Submit</button>
+  </form>
+  {% endblock %}
+</div>

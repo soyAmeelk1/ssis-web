@@ -15,3 +15,12 @@ class Courses(object):
         cursor.execute(sql)
         result = cursor.fetchall()
         return result
+    
+    @classmethod
+    def refer(cls):
+        cursor = mysql.connection.cursor()
+
+        sql = f"SELECT code FROM courses"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
