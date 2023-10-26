@@ -37,3 +37,9 @@ def update_college(id):
         name = request.form['name']
         course = CollegeModel.Colleges.update(id, code, name)
         return redirect(url_for('.index'))
+    
+@college.route('/college/search', methods=['GET', 'POST'])
+def search_college():
+    key_name = request.form.get('key_name')
+    colleges = CollegeModel.Colleges.search(key_name)
+    return render_template('college/index.html', colleges=colleges)

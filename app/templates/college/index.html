@@ -14,6 +14,15 @@
 </li>
 {% endblock %}
 
+{% block search %}
+<form class="d-flex" role="search" action="{{ url_for('college.search_college') }}" method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <label for="key_name"></label>
+  <input class="form-control me-2" name="key_name" type="text" placeholder="Search College" aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+{% endblock %}
+
 {% block content %}
     <table class="table table-striped" style="width: 70%;margin: auto;">
         <thead>
