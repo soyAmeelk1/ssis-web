@@ -19,8 +19,8 @@ class Courses(object):
     def add(self):
         cursor = mysql.connection.cursor()
 
-        sql = f"INSERT INTO courses(code, name, college_id) \
-            VALUES('{self.code}', '{self.name}', '{self.college_id}')"
+        sql = f"INSERT INTO courses(name, code, college_id) \
+            VALUES('{self.name}', '{self.code}', '{self.college_id}')"
 
         cursor.execute(sql)
         mysql.connection.commit()
@@ -28,7 +28,6 @@ class Courses(object):
     @classmethod
     def refer(cls):
         cursor = mysql.connection.cursor()
-
         sql = f"SELECT code FROM courses"
         cursor.execute(sql)
         result = cursor.fetchall()

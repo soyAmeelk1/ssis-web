@@ -2,15 +2,16 @@
 {% block title %}
     Create Course
 {% endblock %}
+
 {% block content %}
 <div class="d-flex justify-content-center">
     <form action="{{ url_for('course.create') }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <div class="mb-3">{{ form.name.label }} {{ form.name(class_="form-control") }}</div>
-        <div class="mb-3">{{ form.code.label }} {{ form.code(class_="form-control") }}</div>
+        <div class="mb-3">{{ form.name.label }} {{ form.code(class_="form-control") }}</div>
+        <div class="mb-3">{{ form.code.label }} {{ form.name(class_="form-control") }}</div>
         <div class="mb-3">
             <label for="college">College</label>
-            <input class="form-control" type="text" list="college" name="college" required>
+            <input class="form-control" type="text" list="college" name="college_id" required>
                 <datalist id="college">
                     {% for college in data %}
                     <option value="{{ college[0] }}"></option>

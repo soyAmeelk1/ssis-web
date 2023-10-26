@@ -20,10 +20,9 @@ def index():
 def create():
     form = CourseForm(request.form)
     if request.method == 'POST' and form.validate():
-        course = CourseModel.Courses(code=form.name.data, name=form.code.data, college=form.college_id.data)
-        print(course)
+        course = CourseModel.Courses(code=form.name.data, name=form.code.data, college_id=form.college_id.data)
         course.add()
-        return redirect('.index')
+        return redirect('/course')
     else:
         colleges = CollegeModel.Colleges.refer()
         return render_template("course/create.html", form=form, data=colleges)
