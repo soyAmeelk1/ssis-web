@@ -34,3 +34,26 @@ class Students(object):
         
         cursor.execute(sql)
         mysql.connection.commit()
+
+    @classmethod
+    def edit(cls,id):
+        cursor = mysql.connection.cursor()
+        sql = f"SELECT * FROM students WHERE id = {id}"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+    
+    @classmethod
+    def update(cls,id,id_number,first_name,last_name,course,year,gender):
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            UPDATE students
+            SET id_number = %s,
+                first_name = %s,
+                last_name = %s,
+                course = %s,
+                year = %s,
+                gender = %s
+            WHERE id = %s
+            """, (id_number, first_name, last_name, course, year, gender, id))
+        mysql.connection.commit()

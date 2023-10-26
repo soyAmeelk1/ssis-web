@@ -7,6 +7,13 @@
     <div class="navbar-brand">Student List</div>
 {% endblock %}
 
+{% block button %}
+<li class="nav-item">
+  <button type="button" class="btn btn-primary">
+    <a href="/student/create" style="color: white;">Add Student</a></button>
+</li>
+{% endblock %}
+
 {% block content %}
     <table class="table table-striped" style="width: 70%;margin: auto;">
         <thead>
@@ -32,7 +39,7 @@
                 <td>{{student[5]}}</td>
                 <td>{{student[6]}}</td>
                 <td>
-                    <button type="button" class="btn btn-warning">Edit</button>
+                    <a href="/student/edit/{{student[0]}}" class="btn btn-warning">Edit</a>
                     <button type="button" class="btn btn-danger">Delete</button>
                 </td>
             </tr>

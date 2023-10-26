@@ -16,6 +16,15 @@ class Courses(object):
         result = cursor.fetchall()
         return result
     
+    def add(self):
+        cursor = mysql.connection.cursor()
+
+        sql = f"INSERT INTO courses(code, name, college_id) \
+            VALUES('{self.code}', '{self.name}', '{self.college_id}')"
+
+        cursor.execute(sql)
+        mysql.connection.commit()
+
     @classmethod
     def refer(cls):
         cursor = mysql.connection.cursor()
