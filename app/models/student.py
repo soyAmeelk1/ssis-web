@@ -44,16 +44,16 @@ class Students(object):
         return result
     
     @classmethod
-    def update(cls,id,id_number,first_name,last_name,course,year,gender):
+    def update(cls,id,id_number,first_name,last_name,course_id,year,gender):
         cursor = mysql.connection.cursor()
         cursor.execute("""
             UPDATE students
             SET id_number = %s,
                 first_name = %s,
                 last_name = %s,
-                course = %s,
+                course_id = %s,
                 year = %s,
                 gender = %s
             WHERE id = %s
-            """, (id_number, first_name, last_name, course, year, gender, id))
+            """, (id_number, first_name, last_name, course_id, year, gender, id))
         mysql.connection.commit()

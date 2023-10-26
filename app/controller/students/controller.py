@@ -35,9 +35,9 @@ def update_student(id):
         id_number = request.form['id_number']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        course = request.form['course']
+        course_id = request.form['course_id']
         year = request.form['year']
         gender = request.form['gender']
 
-        student = StudentModel.Students.update(id, id_number, first_name, last_name, course, year, gender)
+        student = StudentModel.Students.update(id, id_number, first_name, last_name, course_id, year, gender)
         return redirect(url_for('.index'))
