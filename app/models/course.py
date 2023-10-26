@@ -26,6 +26,26 @@ class Courses(object):
         mysql.connection.commit()
 
     @classmethod
+    def edit(cls,id):
+        cursor = mysql.connection.cursor()
+        sql = f"SELECT * FROM courses WHERE id = {id}"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
+
+    @classmethod
+    def update(cls,id,code,name,college_id):
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            UPDATE courses
+            SET code = %s,
+                name = %s,
+                college_id = %s
+            WHERE id = %s
+            """, (code, name, college_id, id))
+        mysql.connection.commit()
+
+    @classmethod
     def refer(cls):
         cursor = mysql.connection.cursor()
         sql = f"SELECT code FROM courses"

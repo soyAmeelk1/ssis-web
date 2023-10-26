@@ -32,7 +32,10 @@
                     <th>{{course[1]}}</th>
                     <th>{{course[2]}}</th>
                     <th>{{course[3]}}</th>
-                    <th><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></th>
+                    <th>
+                        <a href="/course/edit/{{course[0]}}" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </th>
             </tr>
             {% endfor %}
 

@@ -14,8 +14,6 @@ def index():
     print(courses)
     return render_template("course/index.html", courses=courses)
 
-
-
 @course.route('/course/create', methods=['POST', 'GET'])
 def create():
     form = CourseForm(request.form)
@@ -26,3 +24,19 @@ def create():
     else:
         colleges = CollegeModel.Colleges.refer()
         return render_template("course/create.html", form=form, data=colleges)
+    
+@course.route('/course/edit/<id>', methods=['POST', 'GET'])
+def edit_course(id):
+    course = CourseModel.Courses.edit(id)
+    colleges = CollegeModel.Colleges.refer()
+    return render_template('course/edit.html', data=course[0], datas=colleges)
+
+@course.route('/course/update/<id>', methods=['POST'])
+def update_course(id):
+    if request.method == 'POST':
+        code = request.form['code']
+        name = request.form['name']
+        college = request.form['college']
+
+        course = CourseModel.Courses.update(id, code, name, college)
+        return redirect(url_for('.index'))

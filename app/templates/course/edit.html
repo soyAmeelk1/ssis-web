@@ -1,0 +1,31 @@
+{%- extends "master_layout.html" %}
+{% block title %}
+    Edit Course    
+{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <form action="/course/update/{{data[0]}}" method="POST" class="edit-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+       <div class="mb-3">
+            <label for="code">CODE</label>
+            <input class="form-control" type="text" name="name" value="{{data[1]}}">
+       </div>
+
+       <div class="mb-3">
+            <label for="name">NAME</label>
+            <input class="form-control" type="text" name="code" value="{{data[2]}}">
+       </div>
+
+       <div class="mb-3">
+        <label for="college">College</label>
+        <input class="form-control" type="text" list="college" name="college" required>
+            <datalist id="college">
+                {% for college in datas %}
+                <option value="{{ college[0] }}"></option>
+                {% endfor %}
+            </datalist>
+       </div>
+        <button style="font-size: medium;" class="btn btn-outline-success">UPDATE</button>
+    </form>
+</div>
+{% endblock %}
