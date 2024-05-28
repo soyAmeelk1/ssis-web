@@ -4,12 +4,12 @@ from config import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, SECRET_KEY, CLOUDINAR
 from flask_wtf.csrf import CSRFProtect
 import cloudinary
 
-# db = mysql.connector.connect(
-#     host=DB_HOST,
-#     user=DB_USER,
-#     password=DB_PASSWORD,
-#     database=DB_NAME
-# )
+db = mysql.connector.connect(
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    database=DB_NAME
+)
 
 cloudinary.config( 
   cloud_name=CLOUDINARY_CLOUD_NAME, 
@@ -21,11 +21,11 @@ app = Flask(__name__, instance_relative_config=True)
 app.config['SECRET_KEY'] = SECRET_KEY
 CSRFProtect(app)
 
-# from .controller.students import student
-# app.register_blueprint(student)
+from .controller.students import student
+app.register_blueprint(student)
 
-# from .controller.courses import course
-# app.register_blueprint(course)
+from .controller.courses import course
+app.register_blueprint(course)
 
-# from .controller.colleges import college
-# app.register_blueprint(college)
+from .controller.colleges import college
+app.register_blueprint(college)

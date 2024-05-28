@@ -1,10 +1,10 @@
 {% extends "master_layout.html" %}
 {% block title %}
-    Courses
+Courses
 {% endblock %}
 
 {% block subtitle %}
-    <div class="navbar-brand">Course List</div>
+<div class="navbar-brand">Course List</div>
 {% endblock %}
 
 {% block button %}
@@ -15,37 +15,45 @@
 {% endblock %}
 
 {% block search %}
-<form class="d-flex" role="search">
-  <input class="form-control me-2" type="search" placeholder="Search Course" aria-label="Search">
+<form class="d-flex" role="search" action="{{ url_for('course.index') }}" method="GET">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <label for="keyword"></label>
+  <input class="form-control me-2" name="keyword" type="text" placeholder="Search College" aria-label="Search">
   <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 {% endblock %}
 
 {% block content %}
-    <table class="table table-striped" style="width: 70%;margin: auto;">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Course Name</th>
-                <th>Course Code</th>
-                <th>College</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for course in courses %}
-            <tr>
-                    <th>{{course[0]}}</th>
-                    <th>{{course[1]}}</th>
-                    <th>{{course[2]}}</th>
-                    <th>{{course[3]}}</th>
-                    <th>
-                        <a href="/course/edit/{{course[0]}}" class="btn btn-warning">Edit</a>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </th>
-            </tr>
-            {% endfor %}
+<table class="table table-striped" style="width: 70%; margin: auto;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Course Name</th>
+      <th>Course Code</th>
+      <th>College</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in courses %}
+    <tr>
+      <th>{{course[0]}}</th>
+      <th>{{course[1]}}</th>
+      <th>{{course[2]}}</th>
+      <th>{{course[3]}}</th>
+      <th>
+        <a href="/course/edit/{{course[0]}}" class="btn btn-warning">Edit</a>
+        <button type="button" class="btn btn-danger btn-delete" data-id="{{course[0]}}">Delete</button>
+      </th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
 
-        </tbody>
-    </table>
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script>
+  const url = "{{ url_for('course.delete') }}";
+</script>
 {% endblock %}

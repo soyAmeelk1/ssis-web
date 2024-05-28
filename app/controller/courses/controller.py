@@ -1,42 +1,57 @@
-from os import name
-from flask.helpers import url_for
-# from app.controller.students.forms import StudentForm
-from flask import render_template, redirect, request, jsonify, flash
+from flask import render_template, redirect, request, url_for, jsonify
 from . import course
 import app.models.course as CourseModel
 import app.models.college as CollegeModel
-
 from app.controller.courses.forms import CourseForm 
 
 @course.route("/course")
 def index():
-    courses = CourseModel.Courses.all()
-    print(courses)
+    keyword = request.args.get('keyword', default='', type=str)
+    courses = CourseModel.Courses.all(keyword)
+
     return render_template("course/index.html", courses=courses)
 
 @course.route('/course/create', methods=['POST', 'GET'])
 def create():
     form = CourseForm(request.form)
+    
     if request.method == 'POST' and form.validate():
         course = CourseModel.Courses(code=form.name.data, name=form.code.data, college_id=form.college_id.data)
         course.add()
+
         return redirect('/course')
     else:
-        colleges = CollegeModel.Colleges.refer()
+        colleges = CollegeModel.Colleges.all('')
+
         return render_template("course/create.html", form=form, data=colleges)
     
-@course.route('/course/edit/<id>', methods=['POST', 'GET'])
-def edit_course(id):
+@course.route('/course/edit/<id>', methods=['GET'])
+def edit(id):
     course = CourseModel.Courses.edit(id)
-    colleges = CollegeModel.Colleges.refer()
-    return render_template('course/edit.html', data=course[0], datas=colleges)
+    colleges = CollegeModel.Colleges.all('')
 
-@course.route('/course/update/<id>', methods=['POST'])
-def update_course(id):
+    return render_template('course/edit.html', data=course, datas=colleges)
+
+@course.route('/course/<id>', methods=['POST'])
+def update(id):
     if request.method == 'POST':
         code = request.form['code']
         name = request.form['name']
-        college = request.form['college']
+        college_id = request.form['college_id']
+        CourseModel.Courses.update(id, code, name, college_id)
 
-        course = CourseModel.Courses.update(id, code, name, college)
         return redirect(url_for('.index'))
+
+@course.route('/course/delete', methods=['POST'])
+def delete():
+    id = request.form['id']
+
+    if id:
+        try:
+            CourseModel.Courses.delete(id)
+            
+            return jsonify(success=True, message="Successful")
+        except:
+            return jsonify(success=False, message="Course is referenced in Students table")
+
+    return jsonify(success=False, message="Failed")

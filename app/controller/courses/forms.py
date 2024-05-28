@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, SubmitField, SelectField
-import app.models.course as models
+from wtforms import StringField, validators, SubmitField
 
 class CourseForm(FlaskForm):
     name = StringField('Name', [validators.DataRequired()])

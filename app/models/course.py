@@ -1,4 +1,4 @@
-from app import mysql
+from app import db
 
 class Courses(object):
     def __init__(self, id=None, name=None, code=None, college_id=None):
@@ -7,48 +7,34 @@ class Courses(object):
         self.code = code
         self.college_id = college_id
 
-    @classmethod
-    def all(cls):
-        cursor = mysql.connection.cursor()
+    def all(keyword):
+        cursor = db.cursor()
+        query = f"SELECT courses.id, courses.name, courses.code, colleges.name FROM courses JOIN colleges ON colleges.id=courses.college_id WHERE courses.name LIKE '%{keyword}%' OR courses.code LIKE '%{keyword}%' OR colleges.name LIKE '%{keyword}%'"
+        cursor.execute(query)
 
-        sql = "SELECT * FROM courses"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
+        return cursor.fetchall()
     
     def add(self):
-        cursor = mysql.connection.cursor()
+        cursor = db.cursor()
+        query = f"INSERT INTO courses (name, code, college_id) VALUES ('{self.name}', '{self.code}', '{self.college_id}')"
+        cursor.execute(query)
+        db.commit()
 
-        sql = f"INSERT INTO courses(name, code, college_id) \
-            VALUES('{self.name}', '{self.code}', '{self.college_id}')"
+    def edit(id):
+        cursor = db.cursor()
+        query = f"SELECT * FROM courses WHERE id = {id}"
+        cursor.execute(query)
 
-        cursor.execute(sql)
-        mysql.connection.commit()
+        return cursor.fetchone()
 
-    @classmethod
-    def edit(cls,id):
-        cursor = mysql.connection.cursor()
-        sql = f"SELECT * FROM courses WHERE id = {id}"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
+    def update(id, code, name, college_id):
+        cursor = db.cursor()
+        query = f"UPDATE courses SET code = '{code}', name = '{name}', college_id = {college_id} WHERE id = {id}"
+        cursor.execute(query)
+        db.commit()
 
-    @classmethod
-    def update(cls,id,code,name,college_id):
-        cursor = mysql.connection.cursor()
-        cursor.execute("""
-            UPDATE courses
-            SET code = %s,
-                name = %s,
-                college_id = %s
-            WHERE id = %s
-            """, (code, name, college_id, id))
-        mysql.connection.commit()
-
-    @classmethod
-    def refer(cls):
-        cursor = mysql.connection.cursor()
-        sql = f"SELECT code FROM courses"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
+    def delete(id):
+        cursor = db.cursor()
+        query = f"DELETE FROM courses WHERE id = {id}"
+        cursor.execute(query)
+        db.commit()

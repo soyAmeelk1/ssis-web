@@ -1,36 +1,44 @@
-from os import name
-from flask.helpers import url_for
-# from app.controller.students.forms import StudentForm
-from flask import render_template, redirect, request, jsonify, flash
+from flask import render_template, redirect, request, url_for, jsonify
 from . import student
 import app.models.student as StudentModel
 import app.models.course as CourseModel
 from app.controller.students.forms import StudentForm 
-
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
 
 @student.route("/")
 @student.route("/student")
 def index():
-    students = StudentModel.Students.all()
+    keyword = request.args.get('keyword', default='', type=str)
+    students = StudentModel.Students.all(keyword)
+
     return render_template("student/index.html", students=students)
 
 @student.route("/student/create", methods=['POST', 'GET'])
-def create_student():
+def create():
     form = StudentForm(request.form)
-    if request.method == 'POST' and form.validate():
-        student = StudentModel.Students(id_number=form.id_number.data, first_name=form.first_name.data, last_name=form.last_name.data, course_id=form.course_id.data, year=form.year.data, gender=form.gender.data)
-        student.add()
-        return redirect('/')
-    return render_template("student/create.html", form=form)
-    
-@student.route("/student/edit/<id>", methods=['POST', 'GET'])
-def edit_student(id):
-    student = StudentModel.Students.edit(id)
-    course = CourseModel.Courses.refer()
-    return render_template("student/edit.html", data=student[0], datas=course)
 
-@student.route('/student/update/<id>', methods=['POST'])
-def update_student(id):
+    if request.method == 'POST' and form.validate():
+        avatar_file = upload(request.files['avatar_file'])
+        url, options = cloudinary_url(avatar_file['public_id'], width=100, height=150, crop="fill")
+        student = StudentModel.Students(avatar_url=url, id_number=form.id_number.data, first_name=form.first_name.data, last_name=form.last_name.data, course_id=form.course_id.data, year=form.year.data, gender=form.gender.data)
+        student.add()
+
+        return redirect(url_for('.index'))
+    else:    
+        courses = CourseModel.Courses.all('')
+
+        return render_template("student/create.html", form=form, courses=courses)
+
+@student.route("/student/edit/<id>", methods=['POST', 'GET'])
+def edit(id):
+    student = StudentModel.Students.edit(id)
+    course = CourseModel.Courses.all('')
+
+    return render_template("student/edit.html", data=student, datas=course)
+
+@student.route('/student/<id>', methods=['POST'])
+def update(id):
     if request.method == 'POST':
         id_number = request.form['id_number']
         first_name = request.form['first_name']
@@ -38,6 +46,17 @@ def update_student(id):
         course_id = request.form['course_id']
         year = request.form['year']
         gender = request.form['gender']
+        StudentModel.Students.update(id, id_number, first_name, last_name, course_id, year, gender)
 
-        student = StudentModel.Students.update(id, id_number, first_name, last_name, course_id, year, gender)
         return redirect(url_for('.index'))
+
+@student.route('/student/delete', methods=['POST'])
+def delete():
+    id = request.form['id']
+
+    if id:
+        StudentModel.Students.delete(id)
+
+        return jsonify(success=True, message="Successful")
+
+    return jsonify(success=False, message="Failed")
