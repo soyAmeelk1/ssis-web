@@ -40,15 +40,27 @@ def edit(id):
 @student.route('/student/<id>', methods=['POST'])
 def update(id):
     if request.method == 'POST':
+        avatar_file = request.files.get('avatar_file')
+        current_student = StudentModel.Students.get_by_id(id)[0]
+        
+        if avatar_file:
+            uploaded_avatar = upload(avatar_file)
+            url, options = cloudinary_url(uploaded_avatar['public_id'], width=100, height=150, crop="fill")
+            avatar_url = url
+        else:
+            avatar_url = current_student
+
         id_number = request.form['id_number']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         course_id = request.form['course_id']
         year = request.form['year']
         gender = request.form['gender']
-        StudentModel.Students.update(id, id_number, first_name, last_name, course_id, year, gender)
 
+        StudentModel.Students.update(id, avatar_url, id_number, first_name, last_name, course_id, year, gender)
         return redirect(url_for('.index'))
+    else:
+        return "Form validation failed", 400  
 
 @student.route('/student/delete', methods=['POST'])
 def delete():

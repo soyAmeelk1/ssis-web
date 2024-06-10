@@ -16,7 +16,7 @@
 <form class="d-flex" role="search" action="{{ url_for('student.index') }}" method="GET">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
   <label for="keyword"></label>
-  <input class="form-control me-2" name="keyword" type="text" placeholder="Search College" aria-label="Search">
+  <input class="form-control me-2" name="keyword" type="text" placeholder="Search Student" aria-label="Search">
   <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 {% endblock %}
@@ -41,8 +41,7 @@
     <tr>
       <td>{{student[0]}}</td>
       <td>
-        <img src="{{ student[1] }}" alt="">
-
+        <img src="{{ student[1] }}" alt="" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; padding: 2px;">
       </td>
       <td>{{student[2]}}</td>
       <td>{{student[3]}}</td>

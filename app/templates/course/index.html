@@ -18,7 +18,7 @@ Courses
 <form class="d-flex" role="search" action="{{ url_for('course.index') }}" method="GET">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
   <label for="keyword"></label>
-  <input class="form-control me-2" name="keyword" type="text" placeholder="Search College" aria-label="Search">
+  <input class="form-control me-2" name="keyword" type="text" placeholder="Search Courses" aria-label="Search">
   <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 {% endblock %}

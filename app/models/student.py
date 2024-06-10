@@ -31,9 +31,9 @@ class Students(object):
 
         return cursor.fetchone()
     
-    def update(id, id_number, first_name, last_name, course_id, year, gender):
+    def update(id, avatar_url, id_number, first_name, last_name, course_id, year, gender):
         cursor = db.cursor()
-        query = f"UPDATE students SET id_number = '{id_number}', first_name = '{first_name}', last_name = '{last_name}', course_id = {course_id}, year = '{year}', gender = '{gender}' WHERE id = {id}"
+        query = f"UPDATE students SET  avatar_url = '{avatar_url}', id_number = '{id_number}', first_name = '{first_name}', last_name = '{last_name}', course_id = {course_id}, year = '{year}', gender = '{gender}' WHERE id = {id}"
         cursor.execute(query)
         db.commit()
 
@@ -42,3 +42,9 @@ class Students(object):
         query = f"DELETE from students WHERE id = {id}"
         cursor.execute(query)
         db.commit()
+
+    def get_by_id(id):
+        cursor = db.cursor()
+        query = f"SELECT avatar_url FROM students WHERE id = %s"
+        cursor.execute(query, (id,))
+        return cursor.fetchone()
